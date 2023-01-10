@@ -1,74 +1,60 @@
-data class Contact (val contactId: Int, val firstName: String, val lastName: String, val emails: List<Email>, val phoneNumbers: List<PhoneNumber>, val addresses: List<Address>, val group: MutableList<String>)
-
-data class Email (val personalEmail: String?, val professionalEmail: String?)
-data class PhoneNumber (val homeNumber: Int?, val workNumber: Int?)
-
-data class Address (val homeAddress: String?, val workAddress: String?)
-
-data class Group (val groupName: String, val groupContacts: MutableList<String>)
-
-class AddressBookOperations{
-    val contacts = mutableListOf<Contact>()
-    val groups = mutableListOf<Group>()
-
-    fun addContact(contact: Contact){
-        contacts.add(contact)
-    }
-    fun deleteContact(contact: Contact){
-        contacts.remove(contact)
-    }
-    fun searchContacts(contacts: List<Contact>, query: String): List<Contact> {
-        return contacts.filter {
-            it.firstName.contains(query, ignoreCase = true) ||
-            it.lastName.contains(query, ignoreCase = true) ||
-            it.phoneNumbers.toString().contains(query,ignoreCase = true)
-//                it.phoneNumbers.homeNumber.toString().contains(query,ignoreCase = true)
-        }
-    }
-    fun editContact(contact: Contact): String{
-        for((k,v) in contacts.withIndex()){
-            if(v.contactId==contact.contactId){
-                contacts[k]=contact
-                return "${contact.firstName} editted"
-            }
-        }
-        return "Not found"
-//        contacts[contacts.indexOf(contact)]=contact
-    }
-}
 fun main(args: Array<String>) {
     val obj = AddressBookOperations()
     val c1 = Contact(1,"Hamza","Malik",
-        mutableListOf(Email("ddw","dwd")),
-        mutableListOf(PhoneNumber(1234,5678)),
-        mutableListOf(Address("HOME","WORK")),
+        mutableMapOf("work" to "work@gmail.com","home" to "home@gmail.com"),
+        mutableMapOf("work" to "+91 123","home" to "+91 234"),
+        mutableMapOf("HOME" to "ST","WORK" to "BRC"),
         mutableListOf("A","B","C")
     )
     val c2 = Contact(2,"Shivam","Chavda",
-        mutableListOf(Email("shivam@g.com","shivamWork@g.com")),
-        mutableListOf(PhoneNumber(9876,5432)),
-        mutableListOf(Address("Shivam HOME","Shivam WORK")),
+        mutableMapOf("work" to "work@gmail.com","home" to "home@gmail.com"),
+        mutableMapOf("work" to "+91 123","home" to "+91 234"),
+        mutableMapOf("HOME" to "ST","WORK" to "BRC"),
         mutableListOf("A","B","C")
     )
     val c3 = Contact(3,"Hamza","Khan",
-        mutableListOf(Email("hamza@g.com","hamzaWork@g.com")),
-        mutableListOf(PhoneNumber(1234,5678)),
-        mutableListOf(Address("HOME","WORK")),
-        mutableListOf("A","B","C")
+        mutableMapOf("work" to "work@gmail.com","home" to "home@gmail.com"),
+        mutableMapOf("work" to "+91 123","home" to "+91 234"),
+        mutableMapOf("HOME" to "ST","WORK" to "BRC"),
+        mutableListOf("A","B")
+    )
+    val c4 = Contact(4,"Parth","Raval",
+        mutableMapOf("work" to "parthwork@gmail.com","home" to "parthhome@gmail.com"),
+        mutableMapOf("work" to "+91 789","home" to "+91 765"),
+        mutableMapOf("HOME" to "BV","WORK" to "BRC"),
+        mutableListOf("A","B")
     )
     obj.addContact(c1)
     obj.addContact(c2)
     obj.addContact(c3)
     obj.deleteContact(c1)
-//    println(obj.contacts.joinToString("\n"))
-    val searched = obj.searchContacts(obj.contacts, "5678")
+
+
+    obj.editContact(Contact(3,"Zayn","Malik",
+        mutableMapOf("work" to "work@gmail.com","home" to "home@gmail.com"),
+        mutableMapOf("work" to "+91 125","home" to "+91 235"),
+        mutableMapOf("HOME" to "ST","WORK" to "DL"),
+        mutableListOf("A","B","D")
+    ))
+    val searched = obj.searchContacts("D")
 //    println(searched)
     for(c in searched)  println(c)
-    obj.editContact(Contact(3,"Zayn","Malik",
-        mutableListOf(Email("hamza@g.com","hamzaWork@g.com")),
-        mutableListOf(PhoneNumber(1234,5678)),
-        mutableListOf(Address("HOME","WORK")),
-        mutableListOf("A","B","C")
-    ))
-    println(obj.contacts)
+//    println(obj.contacts.joinToString("\n"))
+
+    val g1 = Group(1,
+        "Group1",
+        mutableListOf(c1,c2,c3)
+//        mutableListOf()
+    )
+    val g2 = Group(2,
+        "Group2",
+        mutableListOf(c2,c3)
+//        mutableListOf()
+    )
+    obj.addGroup(g1)
+    obj.addGroup(g2)
+//    obj.deleteGroup(g1)
+//    println(obj.groups.joinToString("\n"))
+    val searchedGroup = obj.searchGroups("Group")
+    for(c in searchedGroup)  println(c)
 }
