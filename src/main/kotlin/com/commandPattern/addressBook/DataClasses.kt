@@ -1,7 +1,9 @@
 package com.commandPattern.addressBook
 
+import java.util.UUID
+
 data class Contact(
-    val contactId: Int,
+    val contactId: UUID,
     val firstName: String,
     val lastName: String,
     val emails: MutableMap<String, String>,
@@ -11,7 +13,7 @@ data class Contact(
 )
 
 data class Group(
-    val groupId: Int,
+    val groupId: UUID,
     val groupName: String,
     val groupMembers: MutableList<Contact>
 )
