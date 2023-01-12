@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03345c36-1d3b-4753-8667-2ad935933c1e" name="Changes" comment="changes done">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/commandPattern/addressBook/Main.kt" afterDir="false" />
+    <list default="true" id="03345c36-1d3b-4753-8667-2ad935933c1e" name="Changes" comment="command pattern applied">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/commandPattern/addressBook/DataClasses.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/commandPattern/addressBook/Storage.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/AddressBookOperations.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/AddressBookOperations.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/commandPattern/addressBook/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/commandPattern/addressBook/Main.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +86,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673371809216</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="command pattern applied">
+      <created>1673439152742</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1673439152742</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -101,6 +109,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="changes done" />
-    <option name="LAST_COMMIT_MESSAGE" value="changes done" />
+    <MESSAGE value="command pattern applied" />
+    <option name="LAST_COMMIT_MESSAGE" value="command pattern applied" />
   </component>
 </project>

@@ -1,9 +1,11 @@
 class AddressBookOperations{
     val contacts = mutableListOf<Contact>()
+//    val contacts = mutableMapOf<String, Contact>()
     val groups = mutableListOf<Group>()
 
     fun addContact(contact: Contact){
         contacts.add(contact)
+//        contacts.put(contact.contactId,contact)
     }
     fun deleteContact(contact: Contact){
         contacts.remove(contact)
@@ -17,6 +19,13 @@ class AddressBookOperations{
                     it.emails.values.contains(query) ||
                     it.group.contains(query)
         }
+//        var searchedContacts: MutableList<Contact> = mutableListOf()
+//        for(i in contacts){
+//            if(i.firstName.contains(query,ignoreCase = true)
+//                || i.lastName.contains(query,ignoreCase = true)
+//                || )
+//        }
+
 
 //        else if (phoneNumber == null && query != null)
 //                return contacts.filter {

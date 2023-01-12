@@ -1,88 +1,60 @@
 package com.commandPattern.addressBook
 
-data class Contact(
-    val contactId: Int,
-    val firstName: String,
-    val lastName: String,
-    val emails: MutableMap<String, String>,
-    val phoneNumbers: MutableMap<String, String>,
-    val addresses: MutableMap<String, String>,
-    val groups: MutableList<String>
-)
-
-data class Group(
-    val groupId: Int,
-    val groupName: String,
-    val groupMembers: MutableList<Contact>
-)
+import kotlin.random.Random
 
 interface Command{
-    fun execute()
-//    fun undo()
+    fun execute(): Any
 }
-//val contacts = mutableListOf<Contact>()
-val groups = mutableListOf<Group>()
+
 class AddContactCommand(
 
-    private val contact: Contact, private val contacts: MutableList<Contact>
+    private val contact: Contact
 ): Command{
     override fun execute() {
-        contacts.add(contact)
+        Storage.addContact(contact)
     }
 
 }
 class DeleteContactCommand(
-    private val contact: Contact
+    private val query: String
 ): Command{
-    override fun execute() {
-//        contacts.remove(contact)
-    }
+    override fun execute(): Any =
+        Storage.deleteContact(query)
 
 
 }
 class EditContactCommand(
-    private val contact: Contact
+    private val oldContact: Contact,
+    private val newContact: Contact
 ):Command{
     override fun execute() {
-//        for((key,value) in contacts.withIndex()){
-//            if(value.contactId==contact.contactId){
-//                contacts[key]=contact
-//            }
-//        }
+        Storage.editContact(oldContact, newContact)
     }
 
 
 }
 
-//class SearchContactCommand(
-//    private val query: String
-//): Command{
-//    override fun execute(): List<Contact> {
-//        return contacts.filter {
-//            query.let { it1 -> it.firstName.contains(it1, ignoreCase = true) } ||
-//                    query.let { it1 -> it.lastName.contains(it1, ignoreCase = true) } ||
-//                    it.phoneNumbers.values.contains(query) ||
-//                    it.addresses.values.contains(query) ||
-//                    it.emails.values.contains(query)
-//        }
-//    }
-//
-//
-//}
+class SearchContactCommand(
+    private val query: String
+): Command{
+    override fun execute(): Any =
+        Storage.searchContacts(query)
+
+}
 class AddGroupCommand(
-    group: Group
+    private val group: Group
 ): Command{
     override fun execute() {
-        TODO("Not yet implemented")
+        Storage.groups[group.groupId] = group
     }
 
 
 }
 class DeleteGroupContact(
-    group: Group
+    private val group: Group
 ): Command {
     override fun execute() {
-        TODO("Not yet implemented")
+        Storage.groups.remove(group.groupId)
     }
 
 }
@@ -107,20 +79,14 @@ class SearchGroupCommand(
 }
 
 class AddressBook(
-//    val history: MutableList<Command> = mutableListOf(),
+    val history: MutableList<Command> = mutableListOf()
 ){
-    val contacts: MutableList<Contact> = mutableListOf()
 
-//    fun executeCommand(command: Command) {
-//        val list = command.execute()
-//        return list
-//    }
-
-    fun addContact(contact: Contact) {
-//        contacts.add(contact)
-        val addCommand = AddContactCommand(contact, contacts)
-        addCommand.execute()
+    fun executeCommand(command: Command): Any {
+        history.add(command)
+        return command.execute()
     }
+
 }
 
 fun main() {
@@ -129,8 +95,77 @@ fun main() {
         mutableMapOf("work" to "work@gmail.com","home" to "home@gmail.com"),
         mutableMapOf("work" to "+91 123","home" to "+91 234"),
         mutableMapOf("HOME" to "ST","WORK" to "BRC"),
-        mutableListOf("A","B","C"))
-    obj.addContact(c1)
-    print(obj.contacts)
-//    println(contacts.joinToString("\n"))
+        mutableListOf("Vayana","PDPU"))
+    val c2 = Contact(2,"Shivam","Chavda",
+        mutableMapOf("work" to "work@gmail.com","home" to "home@gmail.com"),
+        mutableMapOf("work" to "+91 123","home" to "+91 234"),
+        mutableMapOf("HOME" to "ST","WORK" to "BRC"),
+        mutableListOf("Vayana","Navrachna")
+    )
+    val c3 = Contact(3,"Hamza","Khan",
+        mutableMapOf("work" to "work@gmail.com","home" to "home@gmail.com"),
+        mutableMapOf("work" to "+91 123","home" to "+91 234"),
+        mutableMapOf("HOME" to "ST","WORK" to "BRC"),
+        mutableListOf()
+    )
+    val c4 = Contact(4,"Parth","Raval",
+        mutableMapOf("work" to "parthwork@gmail.com","home" to "parthhome@gmail.com"),
+        mutableMapOf("work" to "+91 789","home" to "+91 765"),
+        mutableMapOf("HOME" to "BV","WORK" to "BRC"),
+        mutableListOf("Vayana","PDPU")
+    )
+    obj.executeCommand(AddContactCommand(c1))
+    obj.executeCommand(AddContactCommand(c2))
+    obj.executeCommand(AddContactCommand(c3))
+    obj.executeCommand(AddContactCommand(c4))
+//    println(obj.history)
+    obj.executeCommand(DeleteContactCommand("Hamza"))
+//    println(obj.history)
+
+    obj.executeCommand(EditContactCommand(c3, Contact(
+        3,"Zayn","Malik",
+        mutableMapOf("work" to "work1@gmail.com","home" to "home@gmail.com"),
+        mutableMapOf("work" to "+91 125","home" to "+91 235"),
+        mutableMapOf("HOME" to "ST","WORK" to "DL"),
+        mutableListOf("One Direction","PDPU")))
+    )
+    println(obj.history)
+
+    for(contact in Storage.contacts){
+        println(contact)
+    }
+    val searched = obj.executeCommand(SearchContactCommand("hamza"))
+    println(searched)
+    println(obj.history)
+
+
+    val g1 = Group(1,"Interns", mutableListOf(c1,c2,c4))
+
+
+//    print()
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    fun addContact(contact: Contact) {
+////        contacts.add(contact)
+//        val addCommand = AddContactCommand(contact, contacts)
+//        addCommand.execute()
+//    }
