@@ -51,3 +51,14 @@ fun AddGroupRequest.toGroup() = Group(
     groupName = this@toGroup.groupName,
     groupMembers = this@toGroup.groupMembers
 )
+data class EditGroupRequest(
+    val groupId: UUID,
+    val groupName: String,
+    val groupMembers: MutableList<Contact>
+)
+
+fun EditGroupRequest.toGroup() = Group(
+    groupId = this@toGroup.groupId,
+    groupName = this@toGroup.groupName,
+    groupMembers = this@toGroup.groupMembers
+)

@@ -32,3 +32,36 @@ class SearchContactCommand(
     override fun execute(): Any = Storage.searchContacts(query)
 
 }
+
+class ShowContactCommand: Command {
+    override fun execute(): Any = Storage.showContacts()
+}
+
+class AddGroupCommand(
+    private val request: AddGroupRequest
+): Command{
+    override fun execute(): Any = Storage.addGroup(request.toGroup())
+}
+
+class DeleteGroupContact(
+    private val groupId: UUID
+): Command {
+    override fun execute(): Any = Storage.deleteGroup(groupId)
+
+}
+
+class ShowGroupsCommand: Command{
+    override fun execute(): Any = Storage.showGroups()
+
+}
+class EditGroupCommand(
+    private val groupId:UUID,
+    private val request: EditGroupRequest
+): Command{
+    override fun execute(): Any = Storage.editGroup(groupId,request.toGroup())
+}
+class SearchGroupCommand(
+    private val query: String
+): Command{
+    override fun execute(): Any = Storage.searchGroups(query)
+}

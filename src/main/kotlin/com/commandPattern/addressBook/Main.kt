@@ -1,41 +1,6 @@
 package com.commandPattern.addressBook
 
-class AddGroupCommand(
-    private val group: Group
-): Command{
-    override fun execute() {
-        Storage.groups[group.groupId] = group
-    }
-
-
-}
-class DeleteGroupContact(
-    private val group: Group
-): Command {
-    override fun execute() {
-        Storage.groups.remove(group.groupId)
-    }
-
-}
-class EditGroupCommand(
-    group: Group
-): Command{
-    override fun execute() {
-        TODO("Not yet implemented")
-    }
-
-
-
-}
-class SearchGroupCommand(
-    group: Group
-): Command {
-    override fun execute() {
-        TODO("Not yet implemented")
-    }
-
-
-}
+import java.util.UUID
 
 class AddressBook(
     val history: MutableList<Command> = mutableListOf()
@@ -80,11 +45,26 @@ fun main() {
         mutableMapOf("HOME" to "BV","WORK" to "BRC"),
         mutableListOf("Vayana","PDPU")
     ))) as Contact
-//    println(obj.history)
-    obj.executeCommand(DeleteContactCommand(hamza.contactId))
-//    println(obj.history)
 
-    obj.executeCommand(EditContactCommand(
+
+    println("------------------------Contacts Added---------------------------")
+    var allContacts = obj.executeCommand(ShowContactCommand()) as Map<UUID, Contact>
+    allContacts.forEach {
+        println(it.value)
+    }
+    println()
+
+
+    println("------------------------Contact Deleted | Showing Remaining Contacts--------------------------")
+    obj.executeCommand(DeleteContactCommand(hamza.contactId))
+    allContacts.forEach {
+        println(it.value)
+    }
+    println()
+
+
+    println("------------------------Contact Edited----------------------------")
+    val editedObject = obj.executeCommand(EditContactCommand(
         zayn.contactId,
         EditContactRequest(zayn.contactId,
                         "Zayn",
@@ -94,45 +74,68 @@ fun main() {
                         zayn.addresses,
                         mutableListOf("One Direction")))
     )
-    println(obj.history)
+    println(editedObject)
+    println()
 
-    for(contact in Storage.contacts){
-        println(contact)
+
+    println("---------------------------Searching Contact------------------------")
+    val searched = obj.executeCommand(SearchContactCommand("parth"))
+    println(searched)
+    println()
+
+
+    println("--------------------------History of Commands Used----------------------------")
+    println(obj.history.joinToString("\n"))
+    println()
+
+
+    val vayana = obj.executeCommand(AddGroupCommand(
+        AddGroupRequest(
+        "Vayana Interns",
+        mutableListOf(hamza,parth)
+    ))) as Group
+    val people = obj.executeCommand(AddGroupCommand(
+        AddGroupRequest(
+            "Peoples",
+            mutableListOf(zayn,hamza,parth)
+    ))) as Group
+
+
+    println("----------------------------Group Added----------------------------")
+    var allGroups = obj.executeCommand(ShowGroupsCommand()) as Map<UUID, Group>
+    allGroups.forEach {
+        println(it.value)
     }
-    val searched = obj.executeCommand(SearchContactCommand("hamza"))
-//    println(searched)
-//    println(obj.history)
+    println()
 
 
-//    val g1 = Group(1,"Interns", mutableListOf(hamza,zayn,parth))
-    for(group in Storage.groups){
-        println(group)
+    println("------------------------Group Deleted | Showing Remaining Groups--------------------------")
+    allGroups.forEach {
+        println(it.value)
     }
+    println()
 
-//    print()
+
+    println("------------------------Group Edited----------------------------")
+    val editedGroup = obj.executeCommand(EditGroupCommand(
+        vayana.groupId,
+        EditGroupRequest(vayana.groupId,
+            "Vayana Intern",
+            mutableListOf(hamza,parth)
+    )))
+    println(editedGroup)
+    println()
+
+
+    println("---------------------------Searching Group------------------------")
+    val searchedGroup = obj.executeCommand(SearchGroupCommand("vayana"))
+    println(searchedGroup)
+    println()
+
+    allGroups.forEach {
+        println(it.value)
+    }
+    println()
+    println("--------------------------History of Commands Used----------------------------")
+    println(obj.history.joinToString("\n"))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    fun addContact(contact: Contact) {
-////        contacts.add(contact)
-//        val addCommand = AddContactCommand(contact, contacts)
-//        addCommand.execute()
-//    }
