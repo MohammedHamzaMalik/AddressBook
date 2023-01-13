@@ -23,7 +23,11 @@ class EditContactCommand(
     private val contactId: UUID,
     private val requests: EditContactRequest
 ): Command {
-    override fun execute(): Any = Storage.editContact(contactId, requests.toContact())
+    override fun execute(): Any =
+//        val newGroupIds = requests.groups.map { groupName ->
+//            val group = Storage.groups.values.firstOrNull { it.groupName == groupName }
+//        }
+        Storage.editContact(contactId, requests.toContact())
 }
 
 class SearchContactCommand(

@@ -29,7 +29,7 @@ fun main() {
             mutableMapOf("work" to "work@gmail.com","home" to "home@gmail.com"),
             mutableMapOf("work" to "+91 123","home" to "+91 234"),
             mutableMapOf("HOME" to "ST","WORK" to "BRC"),
-            mutableListOf()
+            mutableListOf("Vayana")
         ))) as Contact
 
     val shivam = obj.executeCommand(AddContactCommand(AddContactRequest("Shivam","Chavda",
@@ -47,18 +47,36 @@ fun main() {
     ))) as Contact
 
 
-    println("------------------------Contacts Added---------------------------")
-    var allContacts = obj.executeCommand(ShowContactCommand()) as Map<UUID, Contact>
-    allContacts.forEach {
-        println(it.value)
+    println("------------------------Contacts---------------------------")
+//    var allContacts = obj.executeCommand(ShowContactCommand()) as Map<UUID, Contact>
+//    allContacts.forEach {
+//        println(it.value)
+//    }
+    for (contact in Storage.showContacts().values) {
+        println("Contact Id: ${contact.contactId}")
+        println("First Name: ${contact.firstName}")
+        println("Last Name: ${contact.lastName}")
+        println("Emails: ${contact.emails}")
+        println("Phone Numbers: ${contact.phoneNumbers}")
+        println("Addresses: ${contact.addresses}")
+        println("Groups: ${contact.groups}\n")
     }
     println()
 
 
     println("------------------------Contact Deleted | Showing Remaining Contacts--------------------------")
     obj.executeCommand(DeleteContactCommand(hamza.contactId))
-    allContacts.forEach {
-        println(it.value)
+//    allContacts.forEach {
+//        println(it.value)
+//    }
+    for (contact in Storage.showContacts().values) {
+        println("Contact Id: ${contact.contactId}")
+        println("First Name: ${contact.firstName}")
+        println("Last Name: ${contact.lastName}")
+        println("Emails: ${contact.emails}")
+        println("Phone Numbers: ${contact.phoneNumbers}")
+        println("Addresses: ${contact.addresses}")
+        println("Groups: ${contact.groups}\n")
     }
     println()
 
@@ -72,15 +90,25 @@ fun main() {
                         zayn.emails,
                         zayn.phoneNumbers,
                         zayn.addresses,
-                        mutableListOf("One Direction")))
-    )
-    println(editedObject)
+                        mutableListOf("One Direction","PDPU")))
+    ) as Contact
+//    println(editedObject)
+//    for (contact in Storage.showContacts().values) {
+    println("Contact Id: ${editedObject.contactId}")
+    println("First Name: ${editedObject.firstName}")
+    println("Last Name: ${editedObject.lastName}")
+    println("Emails: ${editedObject.emails}")
+    println("Phone Numbers: ${editedObject.phoneNumbers}")
+    println("Addresses: ${editedObject.addresses}")
+    println("Groups: ${editedObject.groups}\n")
+//    }
     println()
 
 
     println("---------------------------Searching Contact------------------------")
-    val searched = obj.executeCommand(SearchContactCommand("parth"))
-    println(searched)
+    val searched = obj.executeCommand(SearchContactCommand("parth")) as Map<*,*>
+    for(c in searched.values) println(c)
+//    println(searched)
     println()
 
 
@@ -101,17 +129,28 @@ fun main() {
     ))) as Group
 
 
-    println("----------------------------Group Added----------------------------")
-    var allGroups = obj.executeCommand(ShowGroupsCommand()) as Map<UUID, Group>
-    allGroups.forEach {
-        println(it.value)
+    println("----------------------------Groups----------------------------")
+//    var allGroups = obj.executeCommand(ShowGroupsCommand()) as Map<UUID, Group>
+//    allGroups.forEach {
+//        println(it.value)
+//    }
+    for (group in Storage.showGroups().values) {
+        println("Group Id: ${group.groupId}")
+        println("Group Name: ${group.groupName}")
+        println("Group Members: ${group.groupMembers}\n")
     }
     println()
 
 
     println("------------------------Group Deleted | Showing Remaining Groups--------------------------")
-    allGroups.forEach {
-        println(it.value)
+//    allGroups.forEach {
+//        println(it.value)
+//    }
+    obj.executeCommand(DeleteGroupContact(people.groupId))
+    for (group in Storage.showGroups().values) {
+        println("Group Id: ${group.groupId}")
+        println("Group Name: ${group.groupName}")
+        println("Group Members: ${group.groupMembers}\n")
     }
     println()
 
@@ -128,12 +167,18 @@ fun main() {
 
 
     println("---------------------------Searching Group------------------------")
-    val searchedGroup = obj.executeCommand(SearchGroupCommand("vayana"))
-    println(searchedGroup)
+    val searchedGroup = obj.executeCommand(SearchGroupCommand("vayana")) as Map<*,*>
+    for(c in searchedGroup.values) println(c)
+//    println(searchedGroup)
     println()
 
-    allGroups.forEach {
-        println(it.value)
+//    allGroups.forEach {
+//        println(it.value)
+//    }
+    for (group in Storage.showGroups().values) {
+        println("Group Id: ${group.groupId}")
+        println("Group Name: ${group.groupName}")
+        println("Group Members: ${group.groupMembers}\n")
     }
     println()
     println("--------------------------History of Commands Used----------------------------")

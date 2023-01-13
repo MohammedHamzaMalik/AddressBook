@@ -20,11 +20,41 @@ object Storage {
         return contact
     }
     fun deleteContact(contactId: UUID): MutableMap<UUID, Contact> {
+        val contact = contacts[contactId]
+        contact?.groups?.forEach { groupName ->
+            val group = groups.values.find { it.groupName==groupName }
+            if(group!=null){
+                group.groupMembers.remove(contact)
+                groups[group.groupId]=group
+            }
+        }
         contacts.remove(contactId)
         return contacts
     }
     fun editContact(contactId: UUID, contact: Contact): Contact {
-        contacts[contactId]=contact
+        contacts[contactId] = contact
+        val existingGroups = contact.groups
+
+        // Add contact to new groups
+        existingGroups.forEach { groupName ->
+            val group = groups.values.find { it.groupName==groupName }
+            if (group != null) {
+                group.groupMembers.add(contact)
+            } else {
+                val newGroup = Group(UUID.randomUUID(), groupName, mutableListOf(contact))
+                groups[newGroup.groupId] = newGroup
+            }
+        }
+
+        // Remove contact from old groups
+        val oldGroups = contacts[contactId]?.groups
+        oldGroups?.forEach { groupName ->
+            val group = groups.values.find { it.groupName==groupName }
+            if (group != null && !existingGroups.contains(groupName)) {
+                group.groupMembers.remove(contact)
+            }
+        }
+
         return contact
     }
     fun searchContacts(query: String): Map<UUID, Contact> {
@@ -55,6 +85,14 @@ object Storage {
     }
     fun deleteGroup(groupId: UUID): MutableMap<UUID, Group> {
         groups.remove(groupId)
+
+        val group = groups[groupId]
+//        val group = groups.values.find { it.groupId=groupId }
+        if(group!=null){
+            group.groupMembers.forEach {
+                contacts[it.contactId]?.groups?.remove(group.groupName)
+            }
+        }
         return groups
     }
     fun showGroups(): MutableMap<UUID, Group> {
