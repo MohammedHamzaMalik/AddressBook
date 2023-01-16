@@ -16,24 +16,26 @@ class DeleteContactCommand(
     private val contactId: UUID
 //    private val query: String
 ): Command {
-    override fun execute(): Any = Storage.deleteContact(contactId)
+    override fun execute(): String {
+        return Storage.deleteContact(contactId)
+    }
 }
 
 class EditContactCommand(
     private val contactId: UUID,
     private val requests: EditContactRequest
 ): Command {
-    override fun execute(): Any =
-//        val newGroupIds = requests.groups.map { groupName ->
-//            val group = Storage.groups.values.firstOrNull { it.groupName == groupName }
-//        }
-        Storage.editContact(contactId, requests.toContact())
+    override fun execute(): String {
+        return Storage.editContact(contactId, requests.toContact())
+    }
 }
 
 class SearchContactCommand(
     private val query: String
 ): Command{
-    override fun execute(): Any = Storage.searchContacts(query)
+    override fun execute(): List<Contact> {
+        return Storage.searchContacts(query)
+    }
 
 }
 
@@ -50,7 +52,9 @@ class AddGroupCommand(
 class DeleteGroupContact(
     private val groupId: UUID
 ): Command {
-    override fun execute(): Any = Storage.deleteGroup(groupId)
+    override fun execute(): String {
+        return Storage.deleteGroup(groupId)
+    }
 
 }
 
@@ -62,10 +66,12 @@ class EditGroupCommand(
     private val groupId:UUID,
     private val request: EditGroupRequest
 ): Command{
-    override fun execute(): Any = Storage.editGroup(groupId,request.toGroup())
+    override fun execute(): String {
+        return Storage.editGroup(groupId,request.toGroup())
+    }
 }
 class SearchGroupCommand(
     private val query: String
 ): Command{
-    override fun execute(): Any = Storage.searchGroups(query)
+    override fun execute(): List<Group> = Storage.searchGroups(query)
 }
