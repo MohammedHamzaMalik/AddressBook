@@ -19,7 +19,7 @@ object Storage {
         }
         return contact
     }
-    fun deleteContact(contactId: UUID): MutableMap<UUID, Contact> {
+    fun deleteContact(contactId: UUID): String {
         val contact = contacts[contactId]
         contact?.groups?.forEach { groupName ->
             val group = groups.values.find { it.groupName==groupName }
@@ -29,9 +29,9 @@ object Storage {
             }
         }
         contacts.remove(contactId)
-        return contacts
+        return "Contact with first name as ${contact?.firstName} is deleted."
     }
-    fun editContact(contactId: UUID, contact: Contact): Contact {
+    fun editContact(contactId: UUID, contact: Contact): String {
         contacts[contactId] = contact
         val existingGroups = contact.groups
 
@@ -55,21 +55,27 @@ object Storage {
             }
         }
 
-        return contact
+        return "Contact with first name as ${contact.firstName} is edited."
     }
-    fun searchContacts(query: String): Map<UUID, Contact> {
-        return contacts.filter {
-            it.value.firstName.contains(query,ignoreCase = true) ||
-                    it.value.lastName.contains(query,ignoreCase = true) ||
-                    it.value.phoneNumbers.values.contains(query) ||
-                    it.value.addresses.values.contains(query) ||
-                    it.value.emails.values.contains(query) ||
-                    it.value.groups.contains(query)
+    fun searchContacts(query: String): List<Contact> {
+        val searchedContacts: MutableList<Contact> = mutableListOf()
+        for(contact in contacts){
+            if (
+                contact.value.firstName.contains(query,ignoreCase = true) ||
+                contact.value.lastName.contains(query,ignoreCase = true) ||
+                ("${contact.value.firstName.contains(query,ignoreCase = true)}" + " " +
+                        "${contact.value.lastName.contains(query,ignoreCase = true)}").toBoolean() ||
+                contact.value.phoneNumbers.values.contains(query) ||
+                contact.value.addresses.values.contains(query) ||
+                contact.value.emails.values.contains(query) ||
+                contact.value.groups.contains(query)
+            ) searchedContacts.add(contact.value)
         }
+        return searchedContacts.toList()
     }
 
-    fun showContacts(): MutableMap<UUID, Contact>{
-        return contacts
+    fun showContacts(): Collection<Contact>{
+        return contacts.values
     }
 
     fun addGroup(group: Group): Group{
@@ -83,28 +89,49 @@ object Storage {
         }
         return group
     }
-    fun deleteGroup(groupId: UUID): MutableMap<UUID, Group> {
-        groups.remove(groupId)
-
+    fun deleteGroup(groupId: UUID): String {
         val group = groups[groupId]
-//        val group = groups.values.find { it.groupId=groupId }
-        if(group!=null){
-            group.groupMembers.forEach {
-                contacts[it.contactId]?.groups?.remove(group.groupName)
+        group?.groupMembers?.forEach {
+            contacts[it.contactId]?.groups?.remove(group.groupName)
+        }
+        groups.remove(groupId)
+        return "Group named as ${group?.groupName} is deleted"
+    }
+    fun showGroups(): Collection<Group> {
+        return groups.values
+    }
+    fun editGroup(groupId: UUID, group: Group): String {
+        val previousGroup = groups[groupId]
+        groups[groupId] = group
+
+        var returnStatement = ""
+
+        previousGroup?.groupMembers?.forEach {previousMember ->
+            if (!group.groupMembers.contains(previousMember)) {
+                returnStatement+="${previousMember.firstName+" "+previousMember.lastName} is removed from ${group.groupName}\n"
+                previousMember.groups.remove(previousGroup.groupName)
             }
         }
-        return groups
-    }
-    fun showGroups(): MutableMap<UUID, Group> {
-        return groups
-    }
-    fun editGroup(groupId: UUID, group: Group): Group {
-        groups[groupId]=group
-        return group
-    }
-    fun searchGroups(query: String): Map<UUID, Group> {
-        return groups.filter {
-            it.value.groupName.contains(query,ignoreCase = true)
+        group.groupMembers.forEach { newMember ->
+            if (!previousGroup?.groupMembers?.contains(newMember)!!) {
+                returnStatement+="${newMember.firstName+" "+newMember.lastName} is added to ${group.groupName}\n"
+                newMember.groups.add(group.groupName)
+            }
         }
+        if(previousGroup?.groupName!=group.groupName){
+            group.groupMembers.forEach { member ->
+                member.groups.remove(previousGroup?.groupName)
+                member.groups.add(group.groupName)
+            }
+            returnStatement+="${previousGroup?.groupName} is changed to ${group.groupName}\n"
+        }
+        return returnStatement
+    }
+    fun searchGroups(query: String): List<Group> {
+        val searchedGroup: MutableList<Group> = mutableListOf()
+        for(group in groups.values){
+            if(group.groupName.contains(query,ignoreCase = true)) searchedGroup.add(group)
+        }
+        return searchedGroup
     }
 }
