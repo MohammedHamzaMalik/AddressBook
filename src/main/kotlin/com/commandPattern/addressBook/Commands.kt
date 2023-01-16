@@ -40,7 +40,9 @@ class SearchContactCommand(
 }
 
 class ShowContactCommand: Command {
-    override fun execute(): Any = Storage.showContacts()
+    override fun execute(): Collection<Contact> {
+        return Storage.showContacts()
+    }
 }
 
 class AddGroupCommand(
@@ -59,7 +61,9 @@ class DeleteGroupContact(
 }
 
 class ShowGroupsCommand: Command{
-    override fun execute(): Any = Storage.showGroups()
+    override fun execute(): Collection<Group> {
+        return Storage.showGroups()
+    }
 
 }
 class EditGroupCommand(
