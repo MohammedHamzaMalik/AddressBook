@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03345c36-1d3b-4753-8667-2ad935933c1e" name="Changes" comment="cleaned the structure &amp; addContact,addGroup updated with both functionality">
+    <list default="true" id="03345c36-1d3b-4753-8667-2ad935933c1e" name="Changes" comment="printing contacts and groups without calling directly from storage">
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ContactTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/GroupTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/TestUtils.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/AddressBookOperations.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/DataClasses.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/commandPattern/addressBook/Commands.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/commandPattern/addressBook/Commands.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/commandPattern/addressBook/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/commandPattern/addressBook/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/commandPattern/addressBook/Requests.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/commandPattern/addressBook/Requests.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/commandPattern/addressBook/Storage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/commandPattern/addressBook/Storage.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,10 +27,28 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="AddressBook1" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -45,7 +70,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/hamzam/IdeaProjects/AddressBook2&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/hamzam/Desktop/old projects/AddressBook1&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
@@ -54,7 +79,76 @@
       <recent name="$PROJECT_DIR$/src/main/kotlin" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Kotlin.MainKt">
+    <configuration name="ContactTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;ContactTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ContactTest.delete contact" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;ContactTest.delete contact&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ContactTest.edit contact" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;ContactTest.edit contact&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.commandPattern.addressBook.MainKt" />
       <module name="AddressBook1.main" />
@@ -65,6 +159,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Kotlin.MainKt" />
+        <item itemvalue="Gradle.ContactTest" />
+        <item itemvalue="Gradle.ContactTest.edit contact" />
+        <item itemvalue="Gradle.ContactTest.delete contact" />
       </list>
     </recent_temporary>
   </component>
@@ -119,7 +216,35 @@
       <option name="project" value="LOCAL" />
       <updated>1673610716894</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="contact &amp; group syncs together for all functions">
+      <created>1673638840669</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1673638840669</updated>
+    </task>
+    <task id="LOCAL-00008" summary="return type of classes changed according to functions return type">
+      <created>1673869492891</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1673869492891</updated>
+    </task>
+    <task id="LOCAL-00009" summary="return types changed to string &amp; mutability added, also searchContacts, searchGroup, editGroup changed">
+      <created>1673869788065</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1673869788065</updated>
+    </task>
+    <task id="LOCAL-00010" summary="printing contacts and groups without calling directly from storage">
+      <created>1673870091194</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1673870091194</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -139,6 +264,14 @@
     <MESSAGE value="command pattern using storage method" />
     <MESSAGE value="cl storage method with requests" />
     <MESSAGE value="cleaned the structure &amp; addContact,addGroup updated with both functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleaned the structure &amp; addContact,addGroup updated with both functionality" />
+    <MESSAGE value="contact &amp; group syncs together for all functions" />
+    <MESSAGE value="return type of classes changed according to functions return type" />
+    <MESSAGE value="return types changed to string &amp; mutability added, also searchContacts, searchGroup, editGroup changed" />
+    <MESSAGE value="printing contacts and groups without calling directly from storage" />
+    <option name="LAST_COMMIT_MESSAGE" value="printing contacts and groups without calling directly from storage" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

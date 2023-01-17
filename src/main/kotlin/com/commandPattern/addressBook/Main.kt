@@ -65,8 +65,9 @@ fun main() {
 
 
     println("------------------------Contact Edited----------------------------")
-    val editedObject = obj.executeCommand(EditContactCommand(
+    val editedContact = obj.executeCommand(EditContactCommand(
         zayn.contactId,
+//        EditContactRequest(zayn.contactId,)
         EditContactRequest(zayn.contactId,
                         "Zayn",
                         "Malik",
@@ -75,7 +76,7 @@ fun main() {
                         zayn.addresses,
                         mutableListOf("One Direction","PDPU")))
     )
-    println(editedObject)
+    println(editedContact)
     println()
 
 
@@ -100,7 +101,7 @@ fun main() {
     val vayana = obj.executeCommand(AddGroupCommand(
         AddGroupRequest(
         "Vayana Interns",
-        mutableListOf(hamza,parth,shivam)
+        mutableListOf(hamza,parth,zayn)
     ))) as Group
     val people = obj.executeCommand(AddGroupCommand(
         AddGroupRequest(
@@ -133,7 +134,7 @@ fun main() {
         vayana.groupId,
         EditGroupRequest(vayana.groupId,
             "Vayana Intern",
-            mutableListOf(zayn)
+            mutableListOf(shivam)
     )))
     println(editedGroup)
     println()

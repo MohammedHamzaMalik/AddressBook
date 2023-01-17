@@ -9,7 +9,7 @@ interface Command{
 class AddContactCommand(
     private val requests: AddContactRequest
 ): Command{
-    override fun execute(): Any = Storage.addContact(requests.toContact())
+    override fun execute(): Contact = Storage.addContact(requests.toContact())
 }
 
 class DeleteContactCommand(
@@ -48,7 +48,7 @@ class ShowContactCommand: Command {
 class AddGroupCommand(
     private val request: AddGroupRequest
 ): Command{
-    override fun execute(): Any = Storage.addGroup(request.toGroup())
+    override fun execute(): Group = Storage.addGroup(request.toGroup())
 }
 
 class DeleteGroupContact(

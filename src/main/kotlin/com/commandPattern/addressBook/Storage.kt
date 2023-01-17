@@ -54,7 +54,6 @@ object Storage {
                 group.groupMembers.remove(contact)
             }
         }
-
         return "Contact with first name as ${contact.firstName} is edited."
     }
     fun searchContacts(query: String): List<Contact> {

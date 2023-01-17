@@ -40,7 +40,12 @@ fun EditContactRequest.toContact() = Contact(
     addresses = this@toContact.addresses,
     groups = this@toContact.groups
 )
-
+//data class SearchContactRequest(
+//    val query: String
+//)
+//fun SearchContactRequest.toQuery() = Contact(
+//    query = this@toQuery.query
+//)
 data class AddGroupRequest(
     val groupName: String,
     val groupMembers: MutableList<Contact>
